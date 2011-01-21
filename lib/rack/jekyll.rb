@@ -37,7 +37,7 @@ module Rack
       path_info = request.path_info
       if @files.include?(path_info)
         if path_info =~ /(\/?)$/
-          if @mimes.collect {|regex| path_info =~ regex }.compact.empty?
+          if ::File.directory?(@path + path_info) 
             path_info += $1.nil? ? "/index.html" : "index.html"
           end
         end
